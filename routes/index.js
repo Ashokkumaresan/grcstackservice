@@ -11,7 +11,7 @@ path.basename("/");
 
 var url =
   "mongodb+srv://hotshotsolutions:Hotshot@321@cluster0-5if9n.mongodb.net/grcstack?retryWrites=true&w=majority";
-router.get("/api/login", function (req, res) {
+router.post("/api/login", function (req, res) {
   var query = req.body;
   console.log("input", req.body);
   MongoClient = mongo.MongoClient;  
