@@ -36,6 +36,32 @@ router.post("/api/login", function (req, res) {
   });
 });
 
+
+router.post("/api/getvoting", function (req, res) {
+    var query = req.body;
+    console.log("input", req.body);
+    MongoClient = mongo.MongoClient;  
+  
+    MongoClient.connect(url, { useNewUrlParser: true }, function (err, client) {
+      if (err) {
+        console.log("Error in connecting database");
+      } else {
+        console.log("connected");
+        var db = client.db("grcstack");      
+        db.collection("votingresponse").findOne(
+          { username: query.username },
+          function (findErr, result) {
+            if (findErr) throw findErr;
+            console.log(result);
+            if (result) res.json(result);
+            else res.json({ msg: "new_user" });
+            client.close();
+          }
+        );
+      }
+    });
+  });
+
 router.post("/api/voting", function (req, res) {
   console.log("In Post");
   var query = req.body;
